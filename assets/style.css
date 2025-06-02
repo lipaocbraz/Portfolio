@@ -6,19 +6,38 @@
     font-family: "Poppins", sans-serif;
 }
 
-body{
-    background-color: rgb(40, 39, 39);
-    height: 100vh;
+.flex{
+    display: flex;
 }
+
+body{
+    background-color: rgb(0, 0, 0);
+    height: 100vh;
+
+}
+
 .interface{
     max-width: 1280px;
     margin: 0 auto;
 }
 
+.btn-contato button{
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(127, 58, 206);
+    border-radius: 30px;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    transition: .2s;
+}
+
+
 #foto{
     display: flex;
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
 }
 
 header{
@@ -36,7 +55,7 @@ header nav ul{
 }
 
 header a{
-    color: #171718;
+    color: #7b7b7b;
     text-decoration: none;
     display: inline-block;
 }
@@ -50,12 +69,54 @@ header nav ul li{
     padding: 0 40px;
 }
 
-header .btn-contato button{
-    padding: 10px 40px;
-    font-size: 18px;
-    font-weight: 600;
-    background-color: rgb(127, 58, 206);
-    border-radius: 30px;
-    border: 0;
-    cursor: pointer;
+
+.btn-contato button:hover{
+    box-shadow: 0px 0px 15px  rgb(127, 58, 206);
+    transform: scale(1.05);
+}
+
+.txt-topo-site{
+    color: white;
+}
+
+main .topo-site img{
+    width: 25rem;
+    border-radius: 100%;
+    box-shadow: 0px 0px 30px rgb(127, 58, 206);
+}
+
+/*Topo do site*/
+section.topo-site{
+    padding: 40px 4%;
+}
+section.topo-site .flex{
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+}
+
+section.topo-site h1{
+    font-size: 50px;
+}
+section.topo-site h1 spam{
+    color: rgb(127, 58, 206);
+    font-size: 40px;
+
+}
+
+.topo-site .txt-topo-site p{
+    margin: 40px 0;
+}
+
+.topo-site .img-topo-site img{
+    position: relative;
+    animation: flutuar 2s ease-in-out infinite alternate;
+}
+@keyframes flutuar{
+    0%{
+        top: 0;
+    }
+    100%{
+        top: 30px
+    }
 }
