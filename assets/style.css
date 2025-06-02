@@ -20,7 +20,14 @@ body{
     max-width: 1280px;
     margin: 0 auto;
 }
-
+h2.titulo{
+    color: white;
+    font-size: 38px;
+    text-align: center;
+}
+spam{
+     color: rgb(127, 58, 206);
+}
 .btn-contato button{
     padding: 10px 40px;
     font-size: 18px;
@@ -35,9 +42,7 @@ body{
 
 
 #foto{
-    display: flex;
-    width: 4rem;
-    height: 4rem;
+    width: 4rem; 
 }
 
 header{
@@ -111,7 +116,9 @@ section.topo-site h1 spam{
 .topo-site .img-topo-site img{
     position: relative;
     animation: flutuar 2s ease-in-out infinite alternate;
+    border: 2px solid white;
 }
+
 @keyframes flutuar{
     0%{
         top: 0;
@@ -120,3 +127,81 @@ section.topo-site h1 spam{
         top: 30px
     }
 }
+
+/* Especialidades */
+
+section.especialidades{
+    padding: 40px 4%;
+}
+
+section.especialidades .flex{
+    gap: 60px;
+}
+.especialidades .especialidades-box{
+    padding: 40px;
+    color: white;
+    border: 2px solid #7b7b7b;
+;
+    border-radius: 25px;
+    margin-top: 70px;
+}
+
+.especialidades .especialidades-box:hover{
+    transform: scale(1.05);
+    transition: .2s;
+    box-shadow: 0 0 25px rgb(127, 58, 206);
+    border: 2px solid white;
+}
+
+.especialidades .especialidades-box i{
+    font-size: 70px;
+    color:  rgb(127, 58, 206);
+}
+
+.especialidades .especialidades-box h3{
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+/* Sobre Mim */
+
+#foto_2{
+    width: 45vh;
+    border-radius: 30px; 
+}
+
+section.sobre{
+    padding: 40px 4%;
+}
+
+section.sobre .flex{
+    gap: 60px;
+    align-items: center;
+}
+
+.sobre  .sobremim h2{
+    color: white;
+    font-size: 40px;
+}
+.sobre  .sobremim h2 spam{
+    display: block;
+}
+
+.sobre  .sobremim p{
+    color: white;
+    margin: 15px 0;
+    text-align: justify;
+}
+.sobre  .sobremim .icons{
+    display: flex;
+    gap: 40px;
+}
+.sobre  .sobremim .icons button{
+    color: white;
+    background-color: rgb(127, 58, 206);;
+    font-size: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+}
+
