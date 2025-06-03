@@ -153,6 +153,10 @@ section.especialidades .flex {
   color: rgb(127, 58, 206);
 }
 
+.especialidades .especialidades-box p{
+    text-align: justify;
+}
+
 .especialidades .especialidades-box h3 {
   font-size: 30px;
   margin: 15px 0;
