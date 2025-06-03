@@ -21,7 +21,7 @@ body {
 }
 h2.titulo {
   color: white;
-  font-size: 38px;
+  font-size:50px;
   text-align: center;
 }
 spam {
@@ -161,12 +161,13 @@ section.especialidades .flex {
 /* Sobre Mim */
 
 #foto_2 {
-  width: 45vh;
+  width: 30rem;
   border-radius: 30px;
 }
 
 section.sobre {
   padding: 40px 4%;
+  margin: 100px 0;
 }
 
 section.sobre .flex {
@@ -204,24 +205,55 @@ section.sobre .flex {
 .sobre .sobremim .icons button:hover{
   transform: scale(1.05);
   transition: .2s ;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.673);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.991);
 } 
 
-section .projetos{
-  padding: 40px 4%;
-  
+
+/* ESTILO DO PORTFÓLIO */
+section.portfolio{
+  padding: 80px 4%;
+  box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.088);
 }
 
-.projetos .projeto-grid{
-  color: white;
-  border: 2px white;
+.img-port{
+    width: 360px;
+    height: 460px;
+    background-color: rgb(127, 58, 206);
+    background-size: cover;
+    background-position: 50% 0%;
+    cursor: pointer;
+    border-radius: 40px;
+    position: relative;
 }
 
-.projetos .projeto-grid i{
-  font-size: 70px;
+.img-port:hover{
+    transform: scale(1.05);
+    transition: .5s;
 }
 
-.projetos .projeto-grid p{
-  text-align: justify;
+section.portfolio .flex{
+    justify-content: space-around;
+    margin-top: 60px;
+}
 
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+    background-color: rgba(0, 0, 0, 0.583);
+    color: white;
+    opacity: 0;
+    transition: .5s;
+}
+
+.overlay:hover{
+    opacity: 1;
 }
