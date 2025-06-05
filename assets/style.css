@@ -196,19 +196,19 @@ section.sobre .flex {
   display: flex;
   gap: 40px;
 }
-.sobre .sobremim .icons button {
+.sobre .sobremim .icons button, .line-footer button {
   color: white;
   background-color: rgb(127, 58, 206);
   font-size: 40px;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 100%;
   border: 0px;
 }
-.sobre .sobremim .icons button:hover{
+.sobre .sobremim .icons button:hover, .line-footer button:hover{
   transform: scale(1.05);
   transition: .2s ;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.991);
+  box-shadow: 0 0 15px rgb(127, 58, 206);
 } 
 
 
@@ -306,4 +306,33 @@ form input, form textarea{
   cursor: pointer;
  }
 
- 
+ /* Estilo do rodapé */
+
+ footer{
+  padding: 60px 4%;
+  box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.088);
+ }
+
+ footer .flex{
+  justify-content: space-between;
+  
+ }
+footer .line-footer{
+  padding: 20px 0;
+  border-bottom: rgb(127, 58, 206);
+}
+
+.borda{
+  border-top: 2px solid rgb(127, 58, 206);
+}
+
+ footer .line-footer p i{
+  color: rgb(127, 58, 206);
+  font-size: 22px;
+ }
+
+ footer .line-footer a{
+  color: white;
+  text-decoration: none;
+ }
+
