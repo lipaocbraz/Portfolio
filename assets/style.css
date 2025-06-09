@@ -221,7 +221,7 @@ section.portfolio{
     width: 360px;
     height: 460px;
     background-color: rgb(127, 58, 206);
-    background-size: cover;
+    /* background-size: cover; */
     background-position: 50% 0%;
     cursor: pointer;
     border-radius: 40px;
