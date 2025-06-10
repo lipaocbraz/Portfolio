@@ -7,3 +7,11 @@ Este é o repositório do meu portfólio pessoal, desenvolvido com **HTML**, **C
 - **HTML5** – Estrutura da página
 - **CSS3** – Estilização e responsividade
 - **JavaScript** – Interações e funcionalidades dinâmicas
+
+## 🎯 Funcionalidades
+
+- Design responsivo para diferentes tamanhos de tela
+- Seção de apresentação pessoal
+- Galeria de projetos com links para repositórios ou demos
+- Animações suaves e interatividade com JavaScript
+- Formulário de contato (Ainda em fase de desenvolvimento)
