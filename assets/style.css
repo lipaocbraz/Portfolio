@@ -465,6 +465,14 @@ footer .line-footer a {
   footer .line-footer {
     text-align: center;
   }
+
+  .btn-open {
+    display: block;
+  }
+}
+
+.btn-open {
+  display: none;
 }
 
 /* ESTILO MENU MOBILE */
