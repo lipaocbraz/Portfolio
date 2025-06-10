@@ -17,6 +17,18 @@ document.getElementById("gaita").addEventListener('click', function(){
   window.open("https://sites.google.com/cesar.school/g3-acessibilidade-motora/status-report-2")
 })
 
-// function enviar(){
-//   alert('Formulário enviado!')
-// }
+let btnMenu = document.getElementById('btn-menu')
+let menu = document.getElementById('menu-mobile')
+let overlay = document.getElementById('overlay-menu')
+
+btnMenu.addEventListener('click', ()=>{
+  menu.classList.add('abre-menu')
+})
+
+menu.addEventListener('click', ()=>{
+  menu.classList.remove('abre-menu')
+})
+overlay.addEventListener('click', ()=>{
+  menu.classList.remove('abre-menu')
+})
+
