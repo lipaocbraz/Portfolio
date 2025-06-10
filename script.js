@@ -16,3 +16,7 @@ document.getElementById("vidapet").addEventListener('click', function() {
 document.getElementById("gaita").addEventListener('click', function(){
   window.open("https://sites.google.com/cesar.school/g3-acessibilidade-motora/status-report-2")
 })
+
+// function enviar(){
+//   alert('Formulário enviado!')
+// }

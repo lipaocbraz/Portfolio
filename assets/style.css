@@ -20,14 +20,17 @@ body {
   margin: 0 auto;
   justify-content: ce;
 }
+
 h2.titulo {
   color: white;
-  font-size:50px;
+  font-size: 50px;
   text-align: center;
 }
+
 spam {
   color: rgb(127, 58, 206);
 }
+
 .btn-contato button {
   padding: 10px 40px;
   font-size: 18px;
@@ -48,11 +51,12 @@ header {
   padding: 40px 4%;
 }
 
-header > .interface {
+header>.interface {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
+
 header nav ul {
   list-style-type: none;
 }
@@ -62,17 +66,21 @@ header a {
   text-decoration: none;
   display: inline-block;
 }
+
 header a:hover {
   color: white;
   transform: scale(1.1);
   transition: 0.2s;
 }
+
 header nav ul li {
   display: inline-block;
   padding: 0 40px;
 }
-button:hover, form .btn-enviar input:hover{
-   box-shadow: 0px 0px 15px rgb(127, 58, 206);
+
+button:hover,
+form .btn-enviar input:hover {
+  box-shadow: 0px 0px 15px rgb(127, 58, 206);
   transform: scale(1.05);
 }
 
@@ -80,7 +88,7 @@ button:hover, form .btn-enviar input:hover{
   color: white;
 }
 
-main .topo-site img {
+.topo-site img {
   width: 25rem;
   border-radius: 100%;
   box-shadow: 0px 0px 30px rgb(127, 58, 206);
@@ -90,15 +98,17 @@ main .topo-site img {
 section.topo-site {
   padding: 40px 4%;
 }
+
 section.topo-site .flex {
   align-items: center;
   justify-content: center;
   gap: 90px;
 }
 
-section.topo-site h1 {
+.topo-site h1 {
   font-size: 50px;
 }
+
 section.topo-site h1 spam {
   color: rgb(127, 58, 206);
   font-size: 40px;
@@ -117,6 +127,7 @@ section.topo-site h1 spam {
   0% {
     top: 0;
   }
+
   100% {
     top: 30px;
   }
@@ -131,6 +142,7 @@ section.especialidades {
 section.especialidades .flex {
   gap: 60px;
 }
+
 .especialidades .especialidades-box {
   padding: 40px;
   color: white;
@@ -151,8 +163,8 @@ section.especialidades .flex {
   color: rgb(127, 58, 206);
 }
 
-.especialidades .especialidades-box p{
-    text-align: justify;
+.especialidades .especialidades-box p {
+  text-align: justify;
 }
 
 .especialidades .especialidades-box h3 {
@@ -180,7 +192,10 @@ section.sobre .flex {
 .sobre .sobremim h2 {
   color: white;
   font-size: 40px;
+  line-height: 40px;
+  margin-bottom: 30px;
 }
+
 .sobre .sobremim h2 spam {
   display: block;
 }
@@ -190,12 +205,15 @@ section.sobre .flex {
   margin: 15px 0;
   text-align: justify;
 }
+
 .sobre .sobremim .icons {
   margin-top: 40px;
   display: flex;
   gap: 40px;
 }
-.sobre .sobremim .icons button, .line-footer button {
+
+.sobre .sobremim .icons button,
+.line-footer button {
   color: white;
   background-color: rgb(127, 58, 206);
   font-size: 40px;
@@ -204,69 +222,71 @@ section.sobre .flex {
   border-radius: 100%;
   border: 0px;
 }
-.sobre .sobremim .icons button:hover, .line-footer button:hover{
+
+.sobre .sobremim .icons button:hover,
+.line-footer button:hover {
   transform: scale(1.05);
-  transition: .2s ;
+  transition: .2s;
   box-shadow: 0 0 15px rgb(127, 58, 206);
-} 
+}
 
 
 /* ESTILO DO PORTFÓLIO */
-section.portfolio{
+section.portfolio {
   padding: 80px 4%;
   box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.088);
 }
 
-.img-port{
-    width: 360px;
-    height: 460px;
-    background-color: rgb(127, 58, 206);
-    /* background-size: cover; */
-    background-position: 50% 0%;
-    cursor: pointer;
-    border-radius: 40px;
-    position: relative;
+.img-port {
+  width: 360px;
+  height: 460px;
+  background-color: rgb(127, 58, 206);
+  /* background-size: cover; */
+  background-position: 50% 0%;
+  cursor: pointer;
+  border-radius: 40px;
+  position: relative;
 }
 
-.img-port:hover{
-    transform: scale(1.05);
-    transition: .5s;
+.img-port:hover {
+  transform: scale(1.05);
+  transition: .5s;
 }
 
-section.portfolio .flex{
-    justify-content: space-around;
-    margin-top: 60px;
+section.portfolio .flex {
+  justify-content: space-around;
+  margin-top: 60px;
 }
 
-.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 800;
-    background-color: rgba(0, 0, 0, 0.583);
-    color: white;
-    opacity: 0;
-    transition: .5s;
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0.583);
+  color: white;
+  opacity: 0;
+  transition: .5s;
 }
 
-.overlay:hover{
-    opacity: 1;
+.overlay:hover {
+  opacity: 1;
 }
 
 /* FALA COMIGO. */
 
-section.formulario{
+section.formulario {
   padding: 80px 4%;
 }
 
-form{
+form {
   max-width: 500px;
   margin: 0 auto;
   display: flex;
@@ -276,7 +296,8 @@ form{
   margin-top: 40px;
 }
 
-form input, form textarea{
+form input,
+form textarea {
   width: 100%;
   background-color: rgba(61, 60, 60, 0.32);
   border: 0;
@@ -287,51 +308,161 @@ form input, form textarea{
   font-size: 18px;
 }
 
- form textarea{
-  max-height: 200px; 
+form textarea {
+  max-height: 200px;
   resize: none;
- }
+}
 
- form .btn-enviar{
+form .btn-enviar {
   margin-top: 20px;
   text-align: center;
- }
+}
 
- form .btn-enviar input[type=submit]{
+form .btn-enviar input[type=submit] {
   width: 120px;
   background-color: rgb(127, 58, 206);
   font-weight: 600;
   transition: .2s;
   cursor: pointer;
- }
+}
 
- /* Estilo do rodapé */
+/* Estilo do rodapé */
 
- footer{
+footer {
   padding: 60px 4%;
   box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.088);
- }
+}
 
- footer .flex{
+footer .flex {
   justify-content: space-between;
-  
- }
-footer .line-footer{
+
+}
+
+footer .line-footer {
   padding: 20px 0;
   border-bottom: rgb(127, 58, 206);
 }
 
-.borda{
+.borda {
   border-top: 2px solid rgb(127, 58, 206);
 }
 
- footer .line-footer p i{
+footer .line-footer p i {
   color: rgb(127, 58, 206);
   font-size: 22px;
- }
+}
 
- footer .line-footer a{
+footer .line-footer a {
   color: white;
   text-decoration: none;
- }
+}
 
+@media screen and (max-width: 1220px) {
+  /* GERAIS */
+
+  .flex {
+    flex-direction: column-reverse;
+  }
+
+  h2.titulo {
+    font-size: 34px;
+    line-height: 30px;
+  }
+
+  spam {
+    color: rgb(127, 58, 206);
+  }
+
+  /* CABEÇALHO */
+
+  .menu-desktop,
+  .btn-contato {
+    display: none;
+  }
+
+  /* topo do site */
+  section.topo-site .flex {
+    gap: 40px;
+  }
+
+  section.topo-site {
+    padding: 20px 8%;
+  }
+
+  .topo-site h1 {
+    font-size: 30px;
+  }
+
+  .topo-site h1 spam {
+
+    font-size: 40px;
+  }
+
+  .topo-site img {
+    width: 100%;
+    border-radius: 100%;
+    box-shadow: 0px 0px 30px rgb(127, 58, 206);
+  }
+
+  /* Especialidades */
+
+  section.especialidades {
+    padding: 40px 8%;
+  }
+
+  /* Sobre */
+
+  section.sobre {
+    padding: 40px 8%;
+  }
+
+  section.sobre .flex {
+    gap: 60px;
+    align-items: center;
+  }
+
+  .sobre .sobremim h2 {
+    color: white;
+    font-size: 32px;
+    line-height: 35px;
+    text-align: center;
+  }
+
+  #foto_2 {
+    width: 100%;
+    border-radius: 30px;
+  }
+
+  .sobre .sobremim .icons {
+    gap: 20px;
+    justify-content: center;
+  }
+
+  /* Portfólio */
+
+  section.portfolio {
+    padding: 80px 8%;
+    box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.088);
+  }
+
+  .img-port {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  section.portfolio .flex {
+    justify-content: space-around;
+    margin-top: 60px;
+    gap: 60px;
+  }
+
+  footer .flex {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  footer .line-footer {
+    text-align: center;
+  }
+}
