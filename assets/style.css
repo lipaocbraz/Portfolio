@@ -357,6 +357,10 @@ footer .line-footer a {
   text-decoration: none;
 }
 
+.btn-open {
+  display: none;
+}
+
 @media screen and (max-width: 1220px) {
   /* GERAIS */
 
@@ -469,10 +473,7 @@ footer .line-footer a {
   .btn-open {
     display: block;
   }
-}
 
-.btn-open {
-  display: none;
 }
 
 /* ESTILO MENU MOBILE */
