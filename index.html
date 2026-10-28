@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Felipe Braz · cibersegurança e sistemas</title>
+  <meta name="description" content="Estudante de Ciência da Computação no CESAR School. Aqui eu registro o que estou estudando, construindo e aprendendo em cibersegurança e sistemas.">
+  <meta name="theme-color" content="#FBFBFD" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Felipe Braz · cibersegurança e sistemas">
+  <meta property="og:description" content="O que estou estudando, construindo e aprendendo. Atualizado com frequência.">
+  <meta property="og:locale" content="pt_BR">
+  <!-- Depois de publicar, adicione: og:url e og:image (1200x630) -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top">felipe braz</a>
+    <nav aria-label="Seções">
+      <a href="#agora">Agora</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#notas">Notas</a>
+      <a href="#log">Log</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="pill"><span class="dot"></span>Atualizado em <time id="updated"></time></p>
+      <h1>Oi, eu sou o Felipe.</h1>
+      <p class="lead">Estudo cibersegurança e sistemas, e registro aqui o que estou construindo e aprendendo.</p>
+    </section>
+
+    <section id="agora" class="section">
+      <div class="head"><h2>Agora</h2><p>O que está ocupando minha cabeça neste momento.</p></div>
+      <div class="grid-4" id="agora-list"></div>
+    </section>
+
+    <section id="projetos" class="section">
+      <div class="head"><h2>Projetos</h2><p>Em andamento e concluídos, com o status de cada um.</p></div>
+      <div class="grid-2" id="projetos-list"></div>
+    </section>
+
+    <section id="notas" class="section">
+      <div class="head"><h2>Notas e writeups</h2><p>Coisas que aprendi, resolvi ou quebrei a cabeça para entender.</p></div>
+      <ul class="rows" id="notas-list"></ul>
+    </section>
+
+    <section id="log" class="section">
+      <div class="head"><h2>Log</h2><p>Um diário curto do que mudou, do mais novo para o mais antigo.</p></div>
+      <ol class="timeline" id="log-list"></ol>
+    </section>
+
+    <section id="sobre" class="about">
+      <h2>Sobre</h2>
+      <p>Estudante de Ciência da Computação no CESAR School. Gosto de segurança, sistemas e de entender como as coisas funcionam por dentro. Também sou monitor de Infraestrutura de Software.</p>
+      <p class="links">
+        <a href="https://github.com/lipaocbraz" rel="me noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/felipecbraz" rel="me noopener">LinkedIn</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="foot">© <span id="year"></span> Felipe Braz · v2</footer>
+
+  <noscript><p class="noscript">Ative o JavaScript para ver as listas de Agora, Projetos, Notas e Log.</p></noscript>
+  <script src="assets/content.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
