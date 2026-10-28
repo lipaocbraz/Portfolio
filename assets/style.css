@@ -23,6 +23,7 @@ ul,ol{padding:0;list-style:none}
 .nav nav{display:flex;gap:28px;font-size:14px;color:var(--muted)}
 .nav nav a:hover{color:var(--ink)}
 
+#bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
 main,.foot{width:100%}
 .hero{max-width:var(--max);margin:0 auto;padding:96px 16px 56px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--surface);color:var(--muted);font-size:13px;font-weight:500}
@@ -62,7 +63,7 @@ h2{font-size:clamp(32px,5vw,44px);letter-spacing:-.03em;line-height:1.1;font-wei
 .log-row{display:flex;gap:32px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
 .log-row time{min-width:72px;color:var(--muted);font-size:15px;font-weight:500}
 
-.about{margin-top:56px;background:var(--surface);padding:72px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+.about{margin-top:56px;background:transparent;padding:72px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
 .about h2{font-size:36px}
 .about p:not(.links){max-width:640px;color:var(--muted);font-size:18px}
 .links{display:flex;gap:24px;font-weight:500}
