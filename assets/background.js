@@ -11,12 +11,12 @@
 
   /* ============================ PARÂMETROS ============================ */
   var CFG = {
-    count: { desktop: 1500, mobile: 700 },
-    mobileMax: 700,            // largura (px) até a qual vale o layout de celular
+    count: { desktop: 2800, mobile: 1300 },
+    mobileMax: 900,            // largura (px) até a qual vale o layout de celular
     dprMax: 2,
-    sizeLoose: [0.9, 2],       // tamanho (px) solto: longe -> perto
-    sizeFormed: [1.3, 1.9],
-    alphaLoose: [0.1, 0.4],    // opacidade solta: longe -> perto
+    sizeLoose: [1.2, 2.6],       // tamanho (px) solto: longe -> perto
+    sizeFormed: [1.8, 2.6],
+    alphaLoose: [0.18, 0.5],    // opacidade solta: longe -> perto
     drift: 22,                 // amplitude da deriva (px)
     driftSpeed: 0.35,          // velocidade da deriva
     scrollSmooth: 3.5,         // maior = acompanha o scroll mais rápido
@@ -27,7 +27,7 @@
     stops: [[null, 0], ["agora", 0], ["projetos", 0.3], ["notas", 0.6], ["sobre", 1]],
     // frações de partículas por região (o resto é corpo)
     share: { wing: 0.1, belly: 0.3, feet: 0.03, beak: 0.025, eye: 0.03 },
-    alphaFormed: { body: 0.5, wing: 0.4, belly: 0.5, feet: 0.5, beak: 0.8, eye: 0.7 },
+    alphaFormed: { body: 0.75, wing: 0.6, belly: 0.7, feet: 0.75, beak: 0.95, eye: 0.9 },
     colors: {
       light: { body: "#1D1D1F", belly: "#AEAEB2", feet: "#1D1D1F", eyeSleep: "#C7C7CC", cyan: "#22B8E6" },
       dark:  { body: "#8E8E93", belly: "#F5F5F7", feet: "#8E8E93", eyeSleep: "#F5F5F7", cyan: "#64D2FF" }
@@ -120,10 +120,10 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     var wasMobile = mobile; mobile = W <= CFG.mobileMax;
     if (!parts.length || wasMobile !== mobile) build();
-    Hs = mobile ? Math.min(H * 0.42, 300) : Math.min(H * 0.52, 400);
+    Hs = mobile ? Math.min(H * 0.4, 300) : Math.min(H * 0.5, 420);
     sc = Hs / SH;
-    cx = mobile ? W / 2 : Math.min(W * 0.82, W - 24 - Hs * 0.3);        // desktop: à direita do texto
-    cy = mobile ? H * 0.55 : H * 0.52;
+    cx = mobile ? W / 2 : W - 32 - Hs * 0.3;        // desktop: à direita do texto
+    cy = mobile ? H * 0.5 : H * 0.55;
     parts.forEach(function (p) { p.tx = cx + p.sx * sc; p.ty = cy + p.sy * sc; });
     eyes[0] = [cx + (98 - 120) * sc, cy + (80 - 160) * sc];
     eyes[1] = [cx + (142 - 120) * sc, cy + (80 - 160) * sc];
