@@ -1,48 +1,34 @@
-/* Agente flutuante (protótipo de baixa fidelidade), inspirado no Labi do LaborHub, com pinguim.
+/* Agente flutuante com o mascote do Felipe, inspirado no Labi do LaborHub.
    Nasce no instante da explosão do pinguim (evento "penguin:explode") e passa a flutuar.
-   - Olhos seguem o cursor (como o Labi).
+   - Mascote vetorial animado (assets/mascot/): respira, pisca e acena.
    - Clique: voa atrás do cursor. Clique de novo: fica pairando onde está. Enter/Espaço também alternam.
    - "×" fecha até a próxima explosão.
    Ponto de entrada para o futuro chat: window.PenguinAgent.onActivate (hoje só alterna o voo). */
 (function () {
   "use strict";
 
-  var SIZE = { desktop: 168, mobile: 124 }, MARGIN = 24;
+  var SIZE = { desktop: 230, mobile: 170 }, MARGIN = 24;   // altura do mascote em px
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var el, bubble, pupils = [], size = SIZE.desktop;
+  var el, bubble, pupils = [], mascot = null, size = SIZE.desktop;
   var x = 0, y = 0, tx = 0, ty = 0, vx = 0, follow = false, raf = 0, last = 0, bubbleT = 0;
   var mx = window.innerWidth / 2, my = window.innerHeight / 2;
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
-  var SVG =
-    '<svg viewBox="0 0 120 140" aria-hidden="true" focusable="false">' +
-    '<defs><radialGradient id="pg-iris"><stop offset="0" stop-color="#7fdcff"/><stop offset=".55" stop-color="#1ba9e5"/>' +
-    '<stop offset=".85" stop-color="#0d5f94"/><stop offset="1" stop-color="#14213d"/></radialGradient></defs>' +
-    '<ellipse class="p-wing" cx="21" cy="88" rx="8" ry="27" transform="rotate(10 21 88)"/>' +
-    '<ellipse class="p-wing" cx="99" cy="88" rx="8" ry="27" transform="rotate(-10 99 88)"/>' +
-    '<circle class="p-body" cx="60" cy="46" r="31"/><ellipse class="p-body" cx="60" cy="84" rx="40" ry="50"/>' +
-    '<ellipse class="p-belly" cx="60" cy="94" rx="25" ry="38"/>' +
-    '<ellipse class="p-feet" cx="46" cy="134" rx="12" ry="5"/><ellipse class="p-feet" cx="74" cy="134" rx="12" ry="5"/>' +
-    '<ellipse cx="60" cy="59" rx="7.5" ry="4.8" fill="#22B8E6"/>' +
-    '<g><circle cx="46" cy="44" r="9" fill="url(#pg-iris)"/><circle class="pupil" cx="46" cy="44" r="4.6" fill="#0e0b1a"/>' +
-    '<circle cx="43.5" cy="41.5" r="1.8" fill="#fff"/></g>' +
-    '<g><circle cx="74" cy="44" r="9" fill="url(#pg-iris)"/><circle class="pupil" cx="74" cy="44" r="4.6" fill="#0e0b1a"/>' +
-    '<circle cx="71.5" cy="41.5" r="1.8" fill="#fff"/></g></svg>';
-
   function build() {
     if (el) return;
     el = document.createElement("aside");
     el.className = "pagent"; el.hidden = true;
-    el.setAttribute("aria-label", "Pingo, agente do portfólio (protótipo)");
+    el.setAttribute("aria-label", "Mascote do portfólio");
     el.innerHTML =
       '<div class="pagent-bubble" role="status">Oi! Eu sou o agente do Felipe. Ainda sou um protótipo.</div>' +
-      '<div class="pagent-stage">' + SVG + '</div>' +
+      '<div class="pagent-stage"><div class="pagent-mascot"></div></div>' +
       '<button class="pagent-hit" type="button" aria-pressed="false" ' +
       'title="Clique: o pinguim voa até o cursor. Clique de novo: ele fica pairando."></button>' +
       '<button class="pagent-close" type="button" aria-label="Fechar o agente">×</button>';
     document.body.appendChild(el);
-    pupils = [].slice.call(el.querySelectorAll(".pupil"));
+    // mascote vetorial animado (assets/mascot/mascot.js): idle contínuo; o clique é tratado pelo botão .pagent-hit
+    if (window.Mascot) mascot = window.Mascot.init(el.querySelector(".pagent-mascot"), { autoplay: "idle", clickToWave: false });
     bubble = el.querySelector(".pagent-bubble");
     el.querySelector(".pagent-hit").addEventListener("click", toggle);
     el.querySelector(".pagent-close").addEventListener("click", hide);
@@ -83,6 +69,7 @@
     el.querySelector(".pagent-hit").setAttribute("aria-pressed", String(follow));
     if (!follow) { tx = x; ty = y; }                                      // solta: fica pairando onde está
     wake();
+    if (mascot && !reduced) mascot.play("wave");
     if (window.PenguinAgent && typeof window.PenguinAgent.onActivate === "function") window.PenguinAgent.onActivate(follow);
   }
 
@@ -105,6 +92,7 @@
     place(); look();
     void el.offsetWidth; el.classList.add("pop");                         // reinicia a animação de entrada
     say(); wake();
+    if (mascot && !reduced) setTimeout(function () { mascot.play("wave"); }, 500);   // cumprimenta ao nascer
   }
 
   window.PenguinAgent = { spawn: spawn, hide: function () { if (el) hide(); }, onActivate: null };

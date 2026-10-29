@@ -87,14 +87,12 @@ h2{font-size:clamp(32px,5vw,44px);letter-spacing:-.03em;line-height:1.1;font-wei
 /* Agente flutuante (protótipo, inspirado no Labi do LaborHub) */
 .pagent{position:fixed;left:0;top:0;z-index:40;width:var(--s,168px);height:var(--s,168px);pointer-events:none;will-change:transform}
 .pagent[hidden]{display:none}
-.pagent-stage{width:100%;height:100%;transform:rotate(var(--tilt,0deg));animation:pagentBob 2.6s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(34,184,230,.28))}
+.pagent-stage{width:100%;height:100%;display:flex;justify-content:center;transform:rotate(var(--tilt,0deg));animation:pagentBob 2.6s ease-in-out infinite}
+.pagent-mascot{height:100%;aspect-ratio:1324/2493}
 .pagent.flying{z-index:60}.pagent.flying .pagent-stage{animation-duration:.7s}
 .pagent.pop .pagent-stage{animation:pagentPop .7s var(--ease) 1,pagentBob 2.6s ease-in-out .7s infinite}
 .pagent svg{width:100%;height:100%;overflow:visible}
-.pagent .p-body{fill:#1D1D1F}.pagent .p-wing{fill:#2C2C2E}.pagent .p-belly{fill:#F5F5F7}.pagent .p-feet{fill:#22B8E6}
-.pagent .pupil{transition:transform 80ms linear}
-@media (prefers-color-scheme:dark){.pagent .p-body{fill:#3A3A3C}.pagent .p-wing{fill:#48484A}.pagent .p-feet{fill:#64D2FF}}
-.pagent-hit{position:absolute;left:20%;top:8%;width:60%;height:84%;border:0;background:none;padding:0;border-radius:40%;cursor:grab;pointer-events:auto}
+.pagent-hit{position:absolute;left:28%;top:4%;width:44%;height:92%;border:0;background:none;padding:0;border-radius:40%;cursor:grab;pointer-events:auto}
 .pagent.flying .pagent-hit{cursor:grabbing}
 .pagent-hit:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .pagent-close{position:absolute;right:6px;top:4px;width:22px;height:22px;border:0;border-radius:50%;background:color-mix(in srgb,var(--card) 85%,transparent);color:var(--ink);font:16px/22px var(--font);padding:0;cursor:pointer;pointer-events:auto;opacity:0;transition:opacity var(--dur-2)}
