@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.1.0] - 2026-10-29
+### Adicionado
+- Fundo animado em canvas: poeira estelar que, ao rolar, forma o mascote (silhueta e cores do personagem) e depois explode.
+- Agente flutuante com o mascote vetorial animado (respira, pisca, acena), que nasce na explosão.
+- Tema claro e escuro no fundo, com ajuste de brilho das cores.
+
 ## [2.0.0] - 2026-10-28
 ### Alterado
 - Redesenho completo: de vitrine de projetos para um diário vivo (Agora, Projetos, Notas, Log).
