@@ -217,9 +217,9 @@ if (MINI) {                                          // céu da página: aparece
 }
 function paintPageSky() {
   if (!skyDiv) return; var dk = darkMq.matches;
-  skyDiv.style.background = dk   // céu + um halo suave atrás do cenário, para ele "pousar" na página em vez de flutuar
-    ? "radial-gradient(40% 46% at 50% 53%,rgba(150,180,230,.16),rgba(150,180,230,0) 70%),linear-gradient(180deg,#070d1f 0%,#14224a 38%,#2a3b66 62%,#8a6f86 100%)"
-    : "radial-gradient(40% 46% at 50% 53%,rgba(255,255,255,.45),rgba(255,255,255,0) 70%),linear-gradient(180deg,#6ea6d3 0%,#a9cfea 40%,#cfe6f5 68%,#f6d9c4 100%)";
+  skyDiv.style.background = dk   // sem céu claro: mantém o fundo da página e só acrescenta um halo discreto atrás do cenário
+    ? "radial-gradient(40% 46% at 50% 53%,rgba(120,150,210,.10),rgba(120,150,210,0) 70%)"
+    : "radial-gradient(40% 46% at 50% 53%,rgba(20,40,80,.06),rgba(20,40,80,0) 70%)";
 }
 paintPageSky();
 // desenha a cena no retângulo atual: miniatura no canto -> tela cheia quando ele chega ao cume (suave, com borda esfumada)

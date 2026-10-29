@@ -267,3 +267,5 @@ html.js-stages #tela #sobre p:not(.links){font-family:var(--mono);font-size:clam
 @media (prefers-reduced-motion:reduce){.tela-prompt b{animation:none}}
 /* resumo do cume: nomes sempre legíveis sobre o céu */
 #resumo .names li{color:var(--ink);text-shadow:0 1px 14px rgba(0,0,0,calc(var(--scene,0)*.75))}
+/* tema claro: sem a sombra escura no texto (ela só serve sobre o fundo escuro) */
+@media (prefers-color-scheme:light){.hero,.section .head h2,#resumo .names li{text-shadow:none!important}}
