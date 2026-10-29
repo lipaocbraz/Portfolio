@@ -11,12 +11,16 @@
 
   /* ============================ PARÂMETROS ============================ */
   var CFG = {
-    count: { desktop: 2800, mobile: 1300 },
+    count: { desktop: 2800, mobile: 1300 },        // partículas do pinguim
+    chargeTime: 7,                                 // s entre o pinguim formado e a explosão
+    debrisLife: 3.2, debrisDrag: 1.2, debrisSpeed: [120, 820],
+    dustDensity: 1.7, dustMax: 12000,              // poeira: partículas por 1000 px² de tela (tamanho fixo)
+    dustSize: [0.4, 1.1], dustAlpha: [0.12, 0.45], dustDrift: 40,
     mobileMax: 900,            // largura (px) até a qual vale o layout de celular
     dprMax: 2,
-    sizeLoose: [1.2, 2.6],       // tamanho (px) solto: longe -> perto
-    sizeFormed: [1.8, 2.6],
-    alphaLoose: [0.18, 0.5],    // opacidade solta: longe -> perto
+    sizeLoose: [0.4, 1.1],       // tamanho (px) solto: longe -> perto
+    sizeFormed: [0.7, 1.4],
+    alphaLoose: [0.12, 0.45],    // opacidade solta: longe -> perto
     drift: 22,                 // amplitude da deriva (px)
     driftSpeed: 0.35,          // velocidade da deriva
     scrollSmooth: 3.5,         // maior = acompanha o scroll mais rápido
@@ -27,10 +31,10 @@
     stops: [[null, 0], ["agora", 0], ["projetos", 0.3], ["notas", 0.6], ["sobre", 1]],
     // frações de partículas por região (o resto é corpo)
     share: { wing: 0.1, belly: 0.3, feet: 0.03, beak: 0.025, eye: 0.03 },
-    alphaFormed: { body: 0.75, wing: 0.6, belly: 0.7, feet: 0.75, beak: 0.95, eye: 0.9 },
+    alphaFormed: { body: 0.8, wing: 0.65, belly: 0.8, feet: 0.8, beak: 0.9, eye: 0.85 },
     colors: {
-      light: { body: "#1D1D1F", belly: "#AEAEB2", feet: "#1D1D1F", eyeSleep: "#C7C7CC", cyan: "#22B8E6" },
-      dark:  { body: "#8E8E93", belly: "#F5F5F7", feet: "#8E8E93", eyeSleep: "#F5F5F7", cyan: "#64D2FF" }
+      light: { dust: "#1D1D1F", body: "#1D1D1F", belly: "#AEAEB2", feet: "#1D1D1F", eyeSleep: "#C7C7CC", cyan: "#22B8E6" },
+      dark:  { dust: "#F5F5F7", body: "#8E8E93", belly: "#F5F5F7", feet: "#8E8E93", eyeSleep: "#F5F5F7", cyan: "#64D2FF" }
     }
   };
 
@@ -76,8 +80,9 @@
 
   /* ============================== PARTÍCULAS ============================== */
   var W, H, dpr, mobile, Hs, sc, cx, cy;
-  var parts = [], eyes = [[0, 0], [0, 0]];
-  var Ps = 0, Pt = 0, ghost = 1;                  // progresso suavizado / alvo / fantasma do hero
+  var parts = [], dust = [], eyes = [[0, 0], [0, 0]];
+  var wakeWall = 0, charge = 0, exploded = false, pv = 1, debris = [], shock = null;   // carga azul / explosão
+  var Ps = 0, Pt = 0;                             // progresso suavizado / alvo
   var time = 0, awake = 0, awakeOn = false, wakeT = 0, speak = 0, speaking = false;
   var mx = -9999, my = -9999, raf = 0, last = 0, hoverPeng = false;
   var col = CFG.colors.light;
@@ -113,6 +118,21 @@
     parts = list;                                 // já ordenado por região (poucas trocas de cor)
   }
 
+  // Poeira proporcional à área da tela: tamanho fixo, só a quantidade muda.
+  // Ao redimensionar, adiciona ou remove partículas sem reposicionar as existentes.
+  function syncDust() {
+    var want = Math.min(CFG.dustMax, Math.round(W * H / 1000 * CFG.dustDensity));
+    if (dust.length > want) dust.length = want;
+    while (dust.length < want) {
+      dust.push({
+        z: Math.random(), fx: Math.random(), fy: Math.random(),
+        ph: [rnd(0, 6.28), rnd(0, 6.28), rnd(0, 6.28), rnd(0, 6.28)],
+        sp: [rnd(0.5, 1.3), rnd(0.5, 1.3), rnd(0.2, 0.7), rnd(0.2, 0.7)],
+        ox: 0, oy: 0, vx: 0, vy: 0
+      });
+    }
+  }
+
   function layout() {
     W = window.innerWidth; H = window.innerHeight;
     dpr = Math.min(window.devicePixelRatio || 1, CFG.dprMax);
@@ -120,6 +140,7 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     var wasMobile = mobile; mobile = W <= CFG.mobileMax;
     if (!parts.length || wasMobile !== mobile) build();
+    syncDust();
     Hs = mobile ? Math.min(H * 0.4, 300) : Math.min(H * 0.5, 420);
     sc = Hs / SH;
     cx = mobile ? W / 2 : W - 32 - Hs * 0.3;        // desktop: à direita do texto
@@ -159,7 +180,54 @@
     ctx.clearRect(0, 0, W, H);
     var cur = "";
 
+    // poeira: camada fina e permanente, deriva por toda a tela
+    ctx.fillStyle = col.dust;
+    for (var j = 0; j < dust.length; j++) {
+      var q = dust[j], zq = q.z, am = CFG.dustDrift * (0.4 + zq);
+      var qx = q.fx * W + Math.sin(t * q.sp[0] + q.ph[0]) * am + Math.sin(t * q.sp[2] + q.ph[2]) * am * 0.5;
+      var qy = q.fy * H + Math.cos(t * q.sp[1] + q.ph[1]) * am + Math.cos(t * q.sp[3] + q.ph[3]) * am * 0.5;
+      var ex = qx + q.ox - mx, ey = qy + q.oy - my, e2 = ex * ex + ey * ey;
+      if (e2 < R2 && e2 > 0.01) {
+        var ed = Math.sqrt(e2), ef = (1 - ed / CFG.mouseRadius) * CFG.mouseForce * f60;
+        q.vx += ex / ed * ef; q.vy += ey / ed * ef;
+      }
+      q.vx = (q.vx - q.ox * spring * f60) * damp; q.vy = (q.vy - q.oy * spring * f60) * damp;
+      q.ox += q.vx * f60; q.oy += q.vy * f60;
+      ctx.globalAlpha = CFG.dustAlpha[0] + (CFG.dustAlpha[1] - CFG.dustAlpha[0]) * zq;
+      var qs = CFG.dustSize[0] + (CFG.dustSize[1] - CFG.dustSize[0]) * zq;
+      ctx.beginPath(); ctx.arc(qx + q.ox, qy + q.oy, qs * 0.5 + 0.2, 0, 6.2832); ctx.fill();
+    }
+
+    var ch = smooth(charge), shk = Math.max(speak, ch * ch);
+
+    // detritos da explosão: ciano brilhante que esfria até virar poeira comum
+    for (var k = debris.length - 1; k >= 0; k--) {
+      var b = debris[k], age = time - b.t0, kk = clamp(age / CFG.debrisLife, 0, 1);
+      var dr = Math.exp(-CFG.debrisDrag * dt);
+      b.vx *= dr; b.vy *= dr; b.x += b.vx * dt; b.y += b.vy * dt;
+      var ad = CFG.dustAlpha[0] + (CFG.dustAlpha[1] - CFG.dustAlpha[0]) * b.z;
+      var sd = (CFG.dustSize[0] + (CFG.dustSize[1] - CFG.dustSize[0]) * b.z) * 0.5 + 0.2;
+      dot(col.cyan, b.x, b.y, sd * (1 + 1.6 * (1 - kk)), Math.min(1, 0.9 * (1 - kk) * (1 - kk)));
+      dot(col.dust, b.x, b.y, sd, ad * kk);
+      cur = "";
+    }
+    if (debris.length && time - debris[0].t0 > CFG.debrisLife) mergeDebris(t);
+    if (shock) {                                                          // onda de choque
+      var sa = (time - shock.t0) / 0.9;
+      if (sa >= 1) shock = null;
+      else {
+        ctx.strokeStyle = col.cyan; ctx.lineWidth = 2.5 * (1 - sa) + 0.5;
+        ctx.globalAlpha = 0.55 * (1 - sa); ctx.beginPath();
+        ctx.arc(shock.x, shock.y, Hs * (0.1 + 1.6 * sa), 0, 6.2832); ctx.stroke();
+        var fl = ctx.createRadialGradient(shock.x, shock.y, 0, shock.x, shock.y, Hs * 0.7);
+        fl.addColorStop(0, rgba(col.cyan, 0.7 * (1 - sa) * (1 - sa))); fl.addColorStop(1, rgba(col.cyan, 0));
+        ctx.globalAlpha = 1; ctx.fillStyle = fl; ctx.fillRect(shock.x - Hs, shock.y - Hs, Hs * 2, Hs * 2);
+        cur = "";
+      }
+    }
+
     for (var i = 0; i < parts.length; i++) {
+      if (pv < 0.003) break;                                              // pinguim explodiu: nada a desenhar
       var p = parts[i], z = p.z;
       // deriva solta, orgânica; as mais próximas (z alto) se movem mais
       var amp = CFG.drift * (0.4 + z);
@@ -168,14 +236,13 @@
       // solto -> mancha -> pinguim, com escalonamento por partícula (p.o)
       var sBlob = smooth((Ps - p.o * 0.15) / 0.4);
       var sShape = smooth((Ps - 0.35 - p.o * 0.3) / 0.35);
-      if (p.o < 0.2) sShape = Math.max(sShape, ghost * 0.85);            // silhueta fraca no hero
       var x = lx + (cx + p.bx * Hs - lx) * sBlob, y = ly + (cy + p.by * Hs - ly) * sBlob;
       x += (p.tx - x) * sShape; y += (p.ty - y) * sShape;
 
       var body = p.reg !== R.eye && p.reg !== R.beak && p.reg !== R.feet;
-      if (speak > 0.01 && body) {                                         // "falando": treme de leve
-        x += Math.sin(time * 38 + p.ph[0]) * 1.3 * speak * sShape;
-        y += Math.cos(time * 33 + p.ph[1]) * 1.3 * speak * sShape;
+      if (shk > 0.01 && body) {                                           // "falando"/carregando: treme
+        x += Math.sin(time * 38 + p.ph[0]) * (1.3 + ch * 1.6) * shk * sShape;
+        y += Math.cos(time * 33 + p.ph[1]) * (1.3 + ch * 1.6) * shk * sShape;
       }
 
       // mouse: repele e volta como mola, mesmo com o pinguim formado
@@ -191,7 +258,8 @@
       var aL = CFG.alphaLoose[0] + (CFG.alphaLoose[1] - CFG.alphaLoose[0]) * z;
       var aF = p.af;
       var a = aL + (aF - aL) * sShape;
-      if (speak > 0.01 && body) a *= 1 + 0.35 * Math.sin(time * 8 + p.ph[2]) * speak;
+      if (shk > 0.01 && body) a *= 1 + 0.35 * Math.sin(time * 8 + p.ph[2]) * shk;
+      a *= pv; p.px = x; p.py = y;
       var sL = CFG.sizeLoose[0] + (CFG.sizeLoose[1] - CFG.sizeLoose[0]) * z;
       var sF = CFG.sizeFormed[0] + (CFG.sizeFormed[1] - CFG.sizeFormed[0]) * z;
       var r = (sL + (sF - sL) * sShape) * 0.5;
@@ -204,15 +272,19 @@
         if (c !== cur) { ctx.fillStyle = c; cur = c; }
         ctx.globalAlpha = clamp(a, 0, 1);
         ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+        if (ch > 0.01 && p.reg !== R.beak) {                              // pinguim vai ficando azul brilhante
+          dot(col.cyan, x, y, r * (1 + 0.6 * ch), Math.min(1, a * ch * 1.3 + ch * 0.15 * pv));
+          cur = "";
+        }
       }
       if (p.reg === R.eye) cur = "";                                      // dot() mexeu no fillStyle
     }
 
     if (awake > 0.01) {                                                   // halo suave nos olhos
       eyes.forEach(function (e) {
-        var rad = Hs * 0.09 * wake, gr = ctx.createRadialGradient(e[0], e[1], 0, e[0], e[1], rad);
+        var rad = Hs * 0.06 * wake, gr = ctx.createRadialGradient(e[0], e[1], 0, e[0], e[1], rad);
         gr.addColorStop(0, col.cyan); gr.addColorStop(1, rgba(col.cyan, 0));
-        ctx.globalAlpha = 0.28 * awake * Math.min(wake, 2) * sShapeFull(); ctx.fillStyle = gr;
+        ctx.globalAlpha = 0.16 * awake * Math.min(wake, 2) * sShapeFull(); ctx.fillStyle = gr;
         ctx.beginPath(); ctx.arc(e[0], e[1], rad, 0, 6.2832); ctx.fill();
       });
     }
@@ -230,14 +302,49 @@
   }
   function sShapeFull() { return smooth((Ps - 0.85) / 0.15); }
 
+  /* ============================ EXPLOSÃO ============================ */
+  function explode() {
+    exploded = true; awakeOn = false; charge = 0; pv = 0; speak = 0;
+    shock = { t0: time, x: cx, y: cy };
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i], dx = p.px - cx, dy = p.py - cy;
+      var ang = Math.atan2(dy, dx) + rnd(-0.6, 0.6), sp = rnd(CFG.debrisSpeed[0], CFG.debrisSpeed[1]);
+      debris.push({ x: p.px, y: p.py, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, z: Math.random(), t0: time });
+      p.ox = p.oy = p.vx = p.vy = 0;
+    }
+    var detail = { x: cx, y: cy, size: Hs };
+    if (typeof window.onPenguinExplode === "function") window.onPenguinExplode(detail);
+    window.dispatchEvent(new CustomEvent("penguin:explode", { detail: detail }));
+  }
+
+  // Detritos viram poeira comum: substituem partículas aleatórias do cenário (densidade constante),
+  // com fases escolhidas para o deslocamento ser zero no instante da fusão (sem salto visual).
+  function mergeDebris(t) {
+    var n = Math.min(debris.length, dust.length >> 1);
+    for (var i = 0; i < n; i++) {
+      var b = debris[i], sp = [rnd(0.5, 1.3), rnd(0.5, 1.3), rnd(0.2, 0.7), rnd(0.2, 0.7)];
+      dust[(Math.random() * dust.length) | 0] = {
+        z: b.z, fx: b.x / W, fy: b.y / H, sp: sp,
+        ph: [-t * sp[0], 1.5708 - t * sp[1], -t * sp[2], 1.5708 - t * sp[3]],
+        ox: 0, oy: 0, vx: 0, vy: 0
+      };
+    }
+    debris = [];
+  }
+
   /* ============================== LOOP ============================== */
   function step(dt) {
     time += dt;
     Pt = targetProgress();
     Ps += (Pt - Ps) * (1 - Math.exp(-CFG.scrollSmooth * dt));
-    ghost = 1 - smooth((window.scrollY || 0) / (H * 0.4));
-    if (Ps > 0.97 && !awakeOn) { awakeOn = true; wakeT = time; }
+    if (Ps > 0.97 && !awakeOn && !exploded) { awakeOn = true; wakeT = time; wakeWall = performance.now(); }
     else if (Ps < 0.9) awakeOn = false;
+    if (awakeOn && !exploded) {                                           // timer: formado -> azul -> explosão
+      charge = clamp((performance.now() - wakeWall) / 1000 / CFG.chargeTime, 0, 1);   // relógio real
+      if (charge >= 1) explode();
+    } else charge = Math.max(0, charge - dt * 0.5);
+    if (exploded && Ps < 0.6) exploded = false;                           // rolou de volta: pode formar de novo
+    if (!exploded) pv = Math.min(1, pv + dt * 1.2);
     awake += ((awakeOn ? 1 : 0) - awake) * (1 - Math.exp(-2.5 * dt));
     speak += ((speaking ? 1 : 0) - speak) * (1 - Math.exp(-6 * dt));
     render(dt);
@@ -252,7 +359,7 @@
   function stop() { cancelAnimationFrame(raf); raf = 0; }
 
   function drawStatic() {                         // reduced-motion: pinguim formado e parado
-    Ps = Pt = 1; awake = 1; awakeOn = true; wakeT = -99; ghost = 0; time = 0;
+    Ps = Pt = 1; awake = 1; awakeOn = true; wakeT = -99; time = 0;
     render(0);
   }
 
