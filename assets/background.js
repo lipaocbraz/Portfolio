@@ -12,7 +12,7 @@
   /* ============================ PARÂMETROS ============================ */
   var CFG = {
     count: { desktop: 8000, mobile: 3600 },        // partículas do pinguim
-    chargeTime: 7,                                 // s entre o pinguim formado e a explosão
+    chargeTime: 4,                                 // s entre o pinguim formado e a explosão
     // curva da explosão (prototipada no EffectCraft): d(t) = D·(1 − e^(−k·t)), com curvatura e rastro curto
     debrisLife: 4.5, debrisK: 1.25,                // vida (s) e constante de freada (1/s)
     debrisReach: [0.85, 1.3],                      // alcance D, em múltiplos da meia-diagonal da tela
