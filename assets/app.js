@@ -24,6 +24,8 @@
     $("projetos-list").append(c);
   });
 
+  (C.projetos || []).forEach(function (p) { $("resumo-list").append(el("li", "", p.name)); });
+
   var notas = $("notas-list");
   if (!(C.notas || []).length) {
     notas.append(el("li", "empty", "Os primeiros textos estão a caminho."));

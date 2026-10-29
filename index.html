@@ -21,48 +21,61 @@
     <a class="brand" href="#top">felipe braz</a>
     <nav aria-label="Seções">
       <a href="#agora">Agora</a>
-      <a href="#projetos">Projetos</a>
       <a href="#notas">Notas</a>
       <a href="#log">Log</a>
+      <a href="#projetos">Projetos</a>
       <a href="#sobre">Sobre</a>
     </nav>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <p class="pill"><span class="dot"></span>Atualizado em <time id="updated"></time></p>
-      <h1>Oi, eu sou o Felipe.</h1>
-      <p class="lead">Estudo cibersegurança e sistemas, e registro aqui o que estou construindo e aprendendo.</p>
+    <section class="hero" data-mini="right">
+      <p class="pill"><span class="dot"></span>atualizado <time id="updated"></time></p>
+      <h1>Felipe Braz<span class="cur">_</span></h1>
+      <p class="lead">cibersegurança &amp; sistemas</p>
     </section>
 
-    <section id="agora" class="section">
-      <div class="head"><h2>Agora</h2><p>O que está ocupando minha cabeça neste momento.</p></div>
+    <section id="agora" class="section" data-mini="left">
+      <div class="head"><p class="k">01</p><h2>agora</h2></div>
       <div class="grid-4" id="agora-list"></div>
     </section>
 
-    <section id="projetos" class="section">
-      <div class="head"><h2>Projetos</h2><p>Em andamento e concluídos, com o status de cada um.</p></div>
-      <div class="grid-2" id="projetos-list"></div>
-    </section>
-
-    <section id="notas" class="section">
-      <div class="head"><h2>Notas e writeups</h2><p>Coisas que aprendi, resolvi ou quebrei a cabeça para entender.</p></div>
+    <section id="notas" class="section" data-mini="right">
+      <div class="head"><p class="k">02</p><h2>notas</h2></div>
       <ul class="rows" id="notas-list"></ul>
     </section>
 
-    <section id="log" class="section">
-      <div class="head"><h2>Log</h2><p>Um diário curto do que mudou, do mais novo para o mais antigo.</p></div>
+    <section id="log" class="section" data-mini="left">
+      <div class="head"><p class="k">03</p><h2>log</h2></div>
       <ol class="timeline" id="log-list"></ol>
     </section>
 
+    <!-- no cume: só uma apresentação dos projetos; ao rolar mais, o pinguim entra na cabana e a câmera vai até o computador -->
+    <section id="resumo" class="section" data-mini="right" aria-label="Projetos">
+      <div class="head"><p class="k">04</p><h2>projetos</h2></div>
+      <ul class="names" id="resumo-list"></ul>
+      <p class="hint">role para entrar</p>
+    </section>
+
+    <!-- a tela do computador da cabana: os projetos aparecem aqui no fim da subida -->
+    <div id="tela" class="screen">
+      <div class="screen-bar"><button type="button" class="win-close" aria-label="Sair do computador" title="Sair do computador"></button><i aria-hidden="true"></i><i aria-hidden="true"></i><span>~/felipe/projetos</span></div>
+      <div class="screen-body">
+    <section id="projetos" class="section cards">
+      <div class="head"><p class="k">04</p><h2>projetos</h2></div>
+      <div class="grid-2" id="projetos-list"></div>
+    </section>
+
     <section id="sobre" class="about">
-      <h2>Sobre</h2>
-      <p>Estudante de Ciência da Computação no CESAR School. Gosto de segurança, sistemas e de entender como as coisas funcionam por dentro. Também sou monitor de Infraestrutura de Software.</p>
+      <p class="k">··</p><h2>sobre</h2>
+      <p>Ciência da Computação no CESAR School. Segurança, sistemas e como as coisas funcionam por dentro.</p>
       <p class="links">
         <a href="https://github.com/lipaocbraz" rel="me noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/felipecbraz" rel="me noopener">LinkedIn</a>
       </p>
     </section>
+      </div>
+    </div>
   </main>
 
   <footer class="foot">© <span id="year"></span> Felipe Braz · v2</footer>
@@ -70,6 +83,8 @@
   <noscript><p class="noscript">Ative o JavaScript para ver as listas de Agora, Projetos, Notas e Log.</p></noscript>
   <script src="assets/content.js"></script>
   <script src="assets/app.js"></script>
+  <script src="assets/stage.js"></script>
+  <script src="assets/tela.js"></script>
   <script type="importmap">{"imports":{"three":"./assets/climb/vendor/three.module.min.js"}}</script>
   <script type="module" src="assets/climb/mountain.js"></script>
 </body>
