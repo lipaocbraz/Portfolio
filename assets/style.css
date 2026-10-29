@@ -23,7 +23,7 @@ ul,ol{padding:0;list-style:none}
 .nav nav{display:flex;gap:28px;font-size:14px;color:var(--muted)}
 .nav nav a:hover{color:var(--ink)}
 
-#bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+#scene{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
 main,.foot{width:100%}
 .hero{max-width:var(--max);margin:0 auto;padding:96px 16px 56px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--surface);color:var(--muted);font-size:13px;font-weight:500}
@@ -85,21 +85,9 @@ h2{font-size:clamp(32px,5vw,44px);letter-spacing:-.03em;line-height:1.1;font-wei
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 
 /* Agente flutuante (protótipo, inspirado no Labi do LaborHub) */
-.pagent{position:fixed;left:0;top:0;z-index:40;width:var(--s,168px);height:var(--s,168px);pointer-events:none;will-change:transform}
-.pagent[hidden]{display:none}
-.pagent-stage{width:100%;height:100%;display:flex;justify-content:center;transform:rotate(var(--tilt,0deg));animation:pagentBob 2.6s ease-in-out infinite}
-.pagent-mascot{height:100%;aspect-ratio:1324/2493}
-.pagent.flying{z-index:60}.pagent.flying .pagent-stage{animation-duration:.7s}
-.pagent.pop .pagent-stage{animation:pagentPop .7s var(--ease) 1,pagentBob 2.6s ease-in-out .7s infinite}
-.pagent svg{width:100%;height:100%;overflow:visible}
-.pagent-hit{position:absolute;left:28%;top:4%;width:44%;height:92%;border:0;background:none;padding:0;border-radius:40%;cursor:grab;pointer-events:auto}
-.pagent.flying .pagent-hit{cursor:grabbing}
-.pagent-hit:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.pagent-close{position:absolute;right:6px;top:4px;width:22px;height:22px;border:0;border-radius:50%;background:color-mix(in srgb,var(--card) 85%,transparent);color:var(--ink);font:16px/22px var(--font);padding:0;cursor:pointer;pointer-events:auto;opacity:0;transition:opacity var(--dur-2)}
-.pagent:hover .pagent-close,.pagent-close:focus-visible{opacity:1}
-@media (hover:none){.pagent-close{opacity:1}}
-.pagent-bubble{position:absolute;right:50%;bottom:100%;margin-bottom:4px;width:max-content;max-width:220px;padding:10px 14px;border-radius:16px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);color:var(--ink);font-size:14px;line-height:1.4;opacity:0;transform:translateY(6px);transition:opacity var(--dur-2),transform var(--dur-2) var(--ease);pointer-events:none}
-.pagent-bubble.on{opacity:1;transform:none}
-@keyframes pagentBob{50%{translate:0 -6px}}
-@keyframes pagentPop{from{scale:.2;opacity:0}60%{scale:1.12;opacity:1}to{scale:1;opacity:1}}
-@media (prefers-reduced-motion:reduce){.pagent-stage,.pagent.pop .pagent-stage{animation:none!important}}
+
+/* Cena 3D: a miniatura fica no canto superior direito; o texto do hero vai para a esquerda para não encostar nela */
+@media (min-width:900px){.hero{text-align:left;align-items:flex-start;max-width:none;margin:0;padding-right:46vw;padding-left:max(16px,calc((100vw - var(--max))/2 + 16px))}}
+/* no cume a página vira parte do cenário: o texto ganha uma sombra suave para continuar legível sobre a neve */
+.hero,.section .head{text-shadow:0 1px 14px rgba(0,0,0,calc(var(--scene,0)*.75)),0 0 2px rgba(0,0,0,calc(var(--scene,0)*.5))}
+.hero .lead,.section .head p{color:color-mix(in srgb,var(--muted) calc(100% - var(--scene,0)*100%),var(--ink))}

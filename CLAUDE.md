@@ -22,7 +22,7 @@ Não é uma vitrine para recrutador. É uma página para **o Felipe se apresenta
 - Motion: o Felipe pretende implementar no futuro. O CSS já tem `--ease`, `--dur-1/2/3` e respeita `prefers-reduced-motion`.
 
 ## Estado atual do código
-Site estático, **HTML + CSS + JS puros, sem build**, para GitHub Pages.
+Site estático, **HTML + CSS + JS puros, sem build**, para GitHub Pages. Exceção aceita pelo Felipe: a cena 3D do topo usa **three.js**, incluído localmente em `assets/climb/vendor/` (sem CDN).
 
 ```
 index.html          # estrutura e metadados (title, description, Open Graph parcial)
@@ -52,7 +52,7 @@ README.md, CHANGELOG.md, LICENSE (MIT)
 3. Preencher descrição, topics e link do repositório no GitHub.
 4. **Revisar o conteúdo**: os textos de Agora, Projetos e Sobre foram escritos a partir do que se sabia do Felipe. Em especial: o status do Hubrequin ("Em desenvolvimento") **não foi confirmado**, e o link dele aponta provisoriamente para o perfil do GitHub. Notas começa vazia de propósito (não inventar writeups).
 5. Screenshots/GIFs reais nos cards de projeto (hoje há um bloco com gradiente como placeholder).
-6. **Fundo animado em canvas (pedido ainda não implementado)**, descrito abaixo.
+6. ~~Fundo animado~~ **Feito na v3.0.0**: cena 3D em `assets/climb/` (o texto abaixo descreve o pedido original de poeira, que ficou na tag `v2.1.0`).
 
 ## Tarefa pendente: fundo animado em canvas com pinguim
 Pedido do Felipe (JavaScript puro, sem bibliotecas). Implementar como `assets/background.js` (ou similar) + ajustes no CSS/HTML. Requisitos:
